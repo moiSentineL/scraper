@@ -8,9 +8,11 @@ soup = BeautifulSoup(req.text, "html.parser")
 
 elements = soup.find_all(["h3", "a"])
 
+subjects = ['English', 'Hindi', 'Biology', 'Chemistry', 'Geography', 'Economics', 'History', 'Pol Science', 'Physics', 'Computer', 'Maths', 'Yoga']
 
-
-# current = None
+def find_subject(subject : str, element):
+    if subject in element:
+        return subject
 
 def data(regex=r"(20\d{2})(?:-(\d{2}))?", subject=r"") -> list:
     data= []
@@ -28,11 +30,15 @@ def data(regex=r"(20\d{2})(?:-(\d{2}))?", subject=r"") -> list:
 # print(data)
 
 # data("(2024)")
-for section in data("(2024-25)"):
-    print(f"\n{section['heading']}")
-    for link in section['link']:
-        print(f"  Text: {link['text']} - URL: {link['url']}")
+def output():
+    for section in data("(2024)"):
+        print(f"\n{section['heading']}")
+        for link in section['link']:
+            print(f"  {link['text']} - URL: {link['url']}")
 
+
+if __name__ == "__main__":
+    output()
 
 # for stuff in data:
 #     print(stuff)
